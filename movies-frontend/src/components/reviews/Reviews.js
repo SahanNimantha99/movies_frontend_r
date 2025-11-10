@@ -3,11 +3,11 @@ import api from "../../api/axiosConfig";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import ReviewForm from "../reviewForm/ReviewForm";
+import "./Reviews.css"; // 👈 new CSS file
 
 const Reviews = ({ getMovieData, movie, reviews = [], setReviews }) => {
   const revText = useRef();
-  let params = useParams();
-  const movieId = params.movieId;
+  const { movieId } = useParams();
 
   useEffect(() => {
     getMovieData(movieId);
@@ -15,19 +15,16 @@ const Reviews = ({ getMovieData, movie, reviews = [], setReviews }) => {
 
   const addReview = async (e) => {
     e.preventDefault();
-
     const rev = revText.current;
 
     try {
-      const response = await api.post("/reviews", {
+      await api.post("/reviews", {
         reviewBody: rev.value,
         imdbId: movieId,
       });
 
       const updatedReviews = [...reviews, { body: rev.value }];
-
       rev.value = "";
-
       setReviews(updatedReviews);
     } catch (err) {
       console.error(err);
@@ -35,54 +32,42 @@ const Reviews = ({ getMovieData, movie, reviews = [], setReviews }) => {
   };
 
   return (
-    <Container>
-      <Row>
+    <Container className="reviews-container py-4">
+      <Row className="mb-4">
         <Col>
-          <h3>Reviews</h3>
+          <h3 className="reviews-title">
+            🎬 Reviews for <span className="movie-title">{movie?.title}</span>
+          </h3>
         </Col>
       </Row>
-      <Row className="mt-2">
-        <Col>
-          <img src={movie?.poster} alt="" />
+
+      <Row className="g-4 align-items-start">
+        <Col md={5} className="text-center">
+          <img
+            src={movie?.poster}
+            alt={movie?.title || "Movie Poster"}
+            className="movie-poster rounded-4 shadow-lg"
+          />
         </Col>
-        <Col>
-          {
-            <>
-              <Row>
-                <Col>
-                  <ReviewForm
-                    handleSubmit={addReview}
-                    revText={revText}
-                    labelText="Write a Review?"
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <hr />
-                </Col>
-              </Row>
-            </>
-          }
-          {reviews?.map((r) => {
-            return (
-              <>
-                <Row>
-                  <Col>{r.body}</Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <hr />
-                  </Col>
-                </Row>
-              </>
-            );
-          })}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <hr />
+
+        <Col md={7}>
+          <ReviewForm
+            handleSubmit={addReview}
+            revText={revText}
+            labelText="Write a Review"
+          />
+          <hr className="divider" />
+          <div className="reviews-list mt-3">
+            {reviews.length > 0 ? (
+              reviews.map((r, i) => (
+                <div key={i} className="review-item p-3 rounded-3 mb-3">
+                  <p className="review-text">{r.body}</p>
+                </div>
+              ))
+            ) : (
+              <p className="no-reviews">No reviews yet. Be the first!</p>
+            )}
+          </div>
         </Col>
       </Row>
     </Container>

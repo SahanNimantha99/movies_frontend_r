@@ -1,0 +1,42 @@
+.review-form {
+  background: linear-gradient(145deg, #101010, #1a1a1a);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  color: #e0e0e0;
+  transition: transform 0.2s ease;
+}
+
+.review-form:hover {
+  transform: translateY(-2px);
+}
+
+.form-label-custom {
+  color: gold;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.form-textarea-custom {
+  background-color: #0f0f0f !important;
+  color: #f0f0f0;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 10px;
+  resize: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-textarea-custom:focus {
+  border-color: gold;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.submit-btn {
+  border-color: gold !important;
+  color: gold !important;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: gold !important;
+  color: #121212 !important;
+  transform: translateY(-1px);
+}

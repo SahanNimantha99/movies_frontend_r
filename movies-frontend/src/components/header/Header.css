@@ -1,0 +1,31 @@
+.navbar-custom {
+  background: linear-gradient(90deg, #0b0b0b 0%, #1a1a1a 100%);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.brand-text span {
+  font-size: 1.1rem;
+}
+
+.custom-link {
+  color: #dcdcdc !important;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-link:hover {
+  color: gold !important;
+  transform: translateY(-2px);
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.navbar-toggler-icon {
+  background-image: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
